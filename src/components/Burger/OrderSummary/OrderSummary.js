@@ -1,13 +1,20 @@
-import React from 'react';
-import Aux from '../../../../src/hoc/Auxillary';
+import React, {Component} from 'react';
+import Aux from '../../../hoc/Auxillary/Auxillary';
 import Button from "../../UI/Button/Button";
-const orderSummary = (props) => {
-    const ingredientSummary = Object.keys(props.ingredients).map(igKey => {
-        return (
-        <li>
-            <span style={{textTransform: 'capitalize'}}>{igKey}</span>: {props.ingredients[igKey]}
-        </li>
-    )});
+class OrderSummary extends Component {
+    componentWillUpdate() {
+        console.log("Order Summary Updated");
+    }
+    
+    render(){
+        const ingredientSummary = Object.keys(this.props.ingredients).map(igKey => {
+            return (
+            <li>
+                <span style={{textTransform: 'capitalize'}}>{igKey}</span>: {this.props.ingredients[igKey]}
+            </li>
+        )});
+
+
     return(
     <Aux>
         <h3>Your Order</h3>
@@ -15,12 +22,13 @@ const orderSummary = (props) => {
         <ul>
             {ingredientSummary}
         </ul>
-        <p>For Only <strong>${props.price}</strong></p>
+        <p>For Only <strong>${this.props.price}</strong></p>
         <p>Continue to Checkout?</p>
-        <Button btnType="Danger" clicked={props.cancel}>CANCEL</Button>
-        <Button btnType="Success" clicked={props.continue}>CONTINUE</Button>
+        <Button btnType="Danger" clicked={this.props.cancel}>CANCEL</Button>
+        <Button btnType="Success" clicked={this.props.continue}>CONTINUE</Button>
     </Aux>
     );
+    }
 };
 
-export default orderSummary;
+export default OrderSummary;
